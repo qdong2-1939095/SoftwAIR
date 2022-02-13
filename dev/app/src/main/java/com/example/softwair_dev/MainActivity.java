@@ -1,5 +1,6 @@
 package com.example.softwair_dev;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -84,11 +85,14 @@ public class MainActivity extends AppCompatActivity {
 
                             LoginResult result = response.body();
 
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
-                            builder1.setTitle(result.getName());
-                            builder1.setMessage(result.getEmail());
+//                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+//                            builder1.setTitle(result.getName());
+//                            builder1.setMessage(result.getEmail());
 
-                            builder1.show();
+                            //builder1.show();
+                            Intent i = new Intent(MainActivity.this, Data_display.class);
+                            startActivity(i);
+                            finish();
 
                         } else if (response.code() == 404) {
                             Toast.makeText(MainActivity.this, "Wrong Credentials",
@@ -150,6 +154,9 @@ public class MainActivity extends AppCompatActivity {
                             if (response.code() == 200) {
                                 Toast.makeText(MainActivity.this,
                                         "Signed up successfully", Toast.LENGTH_LONG).show();
+                                Intent i = new Intent(MainActivity.this, Data_display.class);
+                                startActivity(i);
+                                finish();
                             } else if (response.code() == 400) {
                                 Toast.makeText(MainActivity.this,
                                         "Already registered", Toast.LENGTH_LONG).show();
