@@ -75,11 +75,11 @@ public class MainActivity extends AppCompatActivity {
                 map.put("email", emailEdit.getText().toString());
                 map.put("password", passwordEdit.getText().toString());
 
-                Call<LoginResult> call = retrofitInterface.executeLogin(map);
+                Call<Void> call = retrofitInterface.executeLogin(map);
 
-                call.enqueue(new Callback<LoginResult>() {
+                call.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
+                    public void onResponse(Call<Void> call, Response<Void> response) {
 
                         if (response.code() == 200) {
 
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<LoginResult> call, Throwable t) {
+                    public void onFailure(Call<Void> call, Throwable t) {
                         Toast.makeText(MainActivity.this, t.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }

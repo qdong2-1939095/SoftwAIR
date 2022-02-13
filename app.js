@@ -84,9 +84,9 @@ mongoClient.connect(URL, (err, db) => {
                         docClient.query(params, function(error, data) {
                             if (error) {
                                 console.log("Unable to query. Error:", JSON.stringify(error, null, 2));
-                                res.status(400).send(JSON.stringify(error));
+                                res.status(400).send();
                             } else {
-                                console.log("users::fetchByKey::success - " + JSON.stringify(data, null, 2));
+                                // console.log("users::fetchByKey::success - " + JSON.stringify(data, null, 2));
                             }
                         });
                     }
