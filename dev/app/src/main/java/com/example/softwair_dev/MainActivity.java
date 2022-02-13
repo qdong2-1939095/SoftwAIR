@@ -83,19 +83,20 @@ public class MainActivity extends AppCompatActivity {
 
                         if (response.code() == 200) {
 
-                            LoginResult result = response.body();
-
+//                            LoginResult result = response.body();
 //                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
 //                            builder1.setTitle(result.getName());
 //                            builder1.setMessage(result.getEmail());
+//                            builder1.show();
 
-                            //builder1.show();
                             Intent i = new Intent(MainActivity.this, Data_display.class);
                             startActivity(i);
-                            finish();
 
                         } else if (response.code() == 404) {
                             Toast.makeText(MainActivity.this, "Wrong Credentials",
+                                    Toast.LENGTH_LONG).show();
+                        } else if (response.code() == 400) {
+                            Toast.makeText(MainActivity.this, "DynamoDB query failed",
                                     Toast.LENGTH_LONG).show();
                         }
 
@@ -156,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                                         "Signed up successfully", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(MainActivity.this, Data_display.class);
                                 startActivity(i);
-                                finish();
                             } else if (response.code() == 400) {
                                 Toast.makeText(MainActivity.this,
                                         "Already registered", Toast.LENGTH_LONG).show();

@@ -28,7 +28,7 @@ mongoClient.connect(URL, (err, db) => {
             collection.findOne(query, (_, result) => {
 
                 if (result == null) {
-                    collection.insertOne(newUser, (_, __) => {
+                    collection.insertOne(newUser, (__, ___) => {
                         res.status(200).send();
                     });
                 } else {
@@ -49,13 +49,51 @@ mongoClient.connect(URL, (err, db) => {
             collection.findOne(query, (_, result) => {
 
                 if (result != null) {
+                    // const objToSend = {
+                    //     name: result.name,
+                    //     email: result._id
+                    // }
+                    // res.status(200).send(JSON.stringify(objToSend));
 
-                    const objToSend = {
-                        name: result.name,
-                        email: result._id
+
+                    var AWS = require("aws-sdk");
+                    let awsConfig = {
+                        "region": "us-west-2",
+                        "endpoint": "http://dynamodb.us-west-2.amazonaws.com",
+                        "accessKeyId": "AKIAJCYUA5STOSUGIPWA", "secretAccessKey": "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"
+                    };
+                    AWS.config.update(awsConfig);
+                    let docClient = new AWS.DynamoDB.DocumentClient();
+
+                    let fetchByKey = function () {
+                        console.log("Querying for all data in 2021/12 for device id2.");
+
+                        var params = {
+                            TableName : "fakecomp",
+                            KeyConditionExpression: "id = :id",
+                            FilterExpression: "begins_with(#dt, :dt)",
+                            ExpressionAttributeNames:{
+                                "#dt": "date"
+                            },
+                            ExpressionAttributeValues: {
+                                ":id": "2",
+                                ":dt": "2021/12"
+                            }
+                        };
+
+                        docClient.query(params, function(error, data) {
+                            if (error) {
+                                console.log("Unable to query. Error:", JSON.stringify(error, null, 2));
+                                res.status(400).send(JSON.stringify(error));
+                            } else {
+                                console.log("users::fetchByKey::success - " + JSON.stringify(data, null, 2));
+                            }
+                        });
                     }
 
-                    res.status(200).send(JSON.stringify(objToSend));
+                    fetchByKey();
+
+                    res.status(200).send();
 
                 } else {
                     res.status(404).send();
