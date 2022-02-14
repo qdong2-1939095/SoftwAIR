@@ -8,12 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -53,7 +48,6 @@ public class Data_display extends AppCompatActivity {
         l.setAdapter(arr);
 
 
-
         findViewById(R.id.button_refresh).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,45 +56,19 @@ public class Data_display extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<LatestRecord> call, Response<LatestRecord> response) {
                         if (response.code() == 200) {
-                            arr.notifyDataSetChanged();
-                            Toast.makeText(Data_display.this, "Data retrived",
+                            Toast.makeText(Data_display.this, "Data Updated!",
                                     Toast.LENGTH_LONG).show();
-                            String s = response.body().getRecord();
-                            System.out.println(s);
-                            HashMap<String,String> result = null;
-                            try {
-                                result = jsonToMap(s);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                            LatestRecord r =  response.body();
+                            ArrayList<String> newData= r.getResult();
+                            data.clear();
+                            for (int i = 0; i < newData.size(); i++){
+                                data.add(newData.get(i));
                             }
-                            ArrayList<String> newData = new ArrayList<>();
-                            Iterator arrIterator = result.keySet().iterator();
-                            while (arrIterator.hasNext()) {
-                                String mapElement = (String) arrIterator.next();
-                                String element = mapElement + " : "+ result.get(mapElement);
-                                newData.add(element);
-                                Toast.makeText(Data_display.this, element,
-                                        Toast.LENGTH_LONG).show();
-                            }
-                            data = newData;
+                            arr.notifyDataSetChanged();
                         } else if (response.code() == 400) {
                             Toast.makeText(Data_display.this, "AWS query failed",
                                     Toast.LENGTH_LONG).show();
                         }
-                    }
-                    public HashMap<String,String> jsonToMap(String t) throws JSONException {
-
-                        HashMap<String, String> map = new HashMap<String, String>();
-                        JSONObject jObject = new JSONObject(t);
-                        Iterator<?> keys = jObject.keys();
-
-                        while( keys.hasNext() ){
-                            String key = (String)keys.next();
-                            String value = jObject.getString(key);
-                            map.put(key, value);
-
-                        }
-                        return map;
                     }
                     @Override
                     public void onFailure(Call<LatestRecord> call, Throwable t) {
@@ -108,8 +76,6 @@ public class Data_display extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
-
-
             }
         });
     }
