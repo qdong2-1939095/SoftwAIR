@@ -77,8 +77,8 @@ mongoClient.connect(URL, (err, db) => {
 app.post('/queryLatest', (_, res)=> {
     console.log("Querying for last one record of data in <2021/12/3> for device id2.");
     // get current date
-    let date_ob = new Date();
-    let date = "" + date_ob.getFullYear() + "/" + (date_ob.getMonth() + 1) + "/" + date_ob.getDate();
+    // let date_ob = new Date();
+    // let date = "" + date_ob.getFullYear() + "/" + (date_ob.getMonth() + 1) + "/" + date_ob.getDate();
 
     var params = {
         TableName : "fakecomp",
@@ -93,7 +93,7 @@ app.post('/queryLatest', (_, res)=> {
         }
     };
 
-    docClient.query(params, function(error, data) {
+    docClient.query(params, (error, data) => {
         if (error) {
             console.log("Unable to query. Error:", JSON.stringify(error, null, 2));
             res.status(400).send();
@@ -102,7 +102,7 @@ app.post('/queryLatest', (_, res)=> {
             res.status(200).send(JSON.stringify(data.Items[data.Count - 1]));
         }
     });
-    console.log("Query finished.");
+
 });
 
 app.listen(3000, () => {
