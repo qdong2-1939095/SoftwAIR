@@ -75,18 +75,18 @@ public class MainActivity extends AppCompatActivity {
                 map.put("email", emailEdit.getText().toString());
                 map.put("password", passwordEdit.getText().toString());
 
-                Call<Void> call = retrofitInterface.executeLogin(map);
+                Call<LoginResult> call = retrofitInterface.executeLogin(map);
 
-                call.enqueue(new Callback<Void>() {
+                call.enqueue(new Callback<LoginResult>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(Call<LoginResult> call, Response<LoginResult> response) {
 
                         if (response.code() == 200) {
 
 //                            LoginResult result = response.body();
 //                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
-//                            builder1.setTitle(result.getName());
-//                            builder1.setMessage(result.getEmail());
+//                            builder1.setTitle(result.getEmail());
+//                            builder1.setMessage(result.getDeviceId());
 //                            builder1.show();
 
                             Intent i = new Intent(MainActivity.this, Data_display.class);
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(Call<LoginResult> call, Throwable t) {
                         Toast.makeText(MainActivity.this, t.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }

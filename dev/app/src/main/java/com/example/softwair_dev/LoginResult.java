@@ -1,16 +1,18 @@
 package com.example.softwair_dev;
 
-public class LoginResult {
+import java.util.ArrayList;
 
-    private String name;
+public class LoginResult {
 
     private String email;
 
+    private ArrayList<String> DeviceId;
+
     public String getName() {
-        return name;
+        return email;
     }
 
-    public String getEmail() {
-        return email;
+    public ArrayList<String> getDeviceId() {
+        return DeviceId;
     }
 }

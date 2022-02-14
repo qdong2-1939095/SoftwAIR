@@ -69,21 +69,14 @@ public class Data_display extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-//                HashMap<String, String> map = new HashMap<>();
+                Call<LatestRecord> call = retrofitInterface.executeQueryLatest();
 
-                //get data
-
-//                Call<Void> call = retrofitInterface.executeLogin(map);
-
-                call.enqueue(new Callback<Void>() {
+                call.enqueue(new Callback<LatestRecord>() {
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(Call<LatestRecord> call, Response<LatestRecord> response) {
 
                         if (response.code() == 200) {
                             update();
-                        } else if (response.code() == 404) {
-                            Toast.makeText(Data_display.this, "Wrong Credentials",
-                                    Toast.LENGTH_LONG).show();
                         } else if (response.code() == 400) {
                             Toast.makeText(Data_display.this, "AWS query failed",
                                     Toast.LENGTH_LONG).show();
@@ -95,7 +88,7 @@ public class Data_display extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(Call<LatestRecord> call, Throwable t) {
                         Toast.makeText(Data_display.this, t.getMessage(),
                                 Toast.LENGTH_LONG).show();
                     }

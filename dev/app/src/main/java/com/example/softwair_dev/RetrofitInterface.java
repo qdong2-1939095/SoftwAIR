@@ -9,10 +9,13 @@ import retrofit2.http.POST;
 public interface RetrofitInterface {
 
     @POST("/login")
-    Call<Void> executeLogin(@Body HashMap<String, String> map);
+    Call<LoginResult> executeLogin(@Body HashMap<String, String> map);
 
     @POST("/signup")
     Call<Void> executeSignup (@Body HashMap<String, String> map);
+
+    @POST("/queryLatest")
+    Call<LatestRecord> executeQueryLatest();
 
 }
 
