@@ -1,7 +1,6 @@
 package com.example.softwair_dev;
 
 import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
@@ -16,6 +15,4 @@ public interface RetrofitInterface {
 
     @POST("/queryLatest")
     Call<LatestRecord> executeQueryLatest();
-
 }
-

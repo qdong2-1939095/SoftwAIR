@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.makeText(MainActivity.this,
                                         "Signed up successfully", Toast.LENGTH_LONG).show();
                                 Intent i = new Intent(MainActivity.this, Data_display.class);
-                                startActivity(i);
+//                                startActivity(i);
                             } else if (response.code() == 400) {
                                 Toast.makeText(MainActivity.this,
                                         "Already registered", Toast.LENGTH_LONG).show();

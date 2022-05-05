@@ -9,7 +9,6 @@ const awsConfig = {
     "endpoint": "http://dynamodb.us-west-2.amazonaws.com",
     "accessKeyId": "AKIAJCYUA5STOSUGIPWA", "secretAccessKey": "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"
 };
-
 AWS.config.update(awsConfig);
 const docClient = new AWS.DynamoDB.DocumentClient();
 
@@ -75,10 +74,10 @@ mongoClient.connect(URL, (err, db) => {
 });
 
 app.post('/queryLatest', (_, res)=> {
-    console.log("Querying for last one record of data in <2021/12/3> for device id2.");
+    console.log("Example: Querying for last one record of data of current date for device id5.");
     // get current date
-    // let date_ob = new Date();
-    // let date = "" + date_ob.getFullYear() + "/" + (date_ob.getMonth() + 1) + "/" + date_ob.getDate();
+    let date_ob = new Date();
+    let date = "" + date_ob.getFullYear() + "/" + (date_ob.getMonth() + 1) + "/" + date_ob.getDate();
 
     var params = {
         TableName : "fakecomp",
@@ -88,8 +87,8 @@ app.post('/queryLatest', (_, res)=> {
             "#dt": "date"
         },
         ExpressionAttributeValues: {
-            ":id": "2",
-            ":dt": "2021/12/3"
+            ":id": "5",
+            ":dt": date
         }
     };
 
