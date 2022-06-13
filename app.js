@@ -4,11 +4,7 @@ const mongoClient = require('mongodb').MongoClient;
 const URL = "mongodb://localhost:27017";
 
 const AWS = require("aws-sdk");
-const awsConfig = {
-    "region": "us-west-2",
-    "endpoint": "http://dynamodb.us-west-2.amazonaws.com",
-    "accessKeyId": "AKIAJCYUA5STOSUGIPWA", "secretAccessKey": "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"
-};
+
 AWS.config.update(awsConfig);
 const docClient = new AWS.DynamoDB.DocumentClient();
 
